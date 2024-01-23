@@ -1,0 +1,105 @@
+spring:
+  threads:
+    virtual:
+      enabled: true
+  profiles:
+    group:
+      "local": "localdb,common,localms"
+---
+spring:
+  profiles:
+    group:
+      "dev": "devdb,common,devms"
+---
+spring:
+  config:
+    activate:
+      on-profile: "localms"
+logging:
+  level:
+    root: info
+  file:
+    name: "./library-webapp.log"
+---
+spring:
+  config:
+    activate:
+      on-profile: "devms"
+logging:
+  file:
+    name: /data/logs/spring/${HOSTNAME}/library-webapp.log
+---
+spring:
+  config:
+    activate:
+      on-profile: "localdb"
+  h2:
+    console:
+      enabled: true
+      path: /h2/library
+      settings:
+        trace: true
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:library
+      username: ether
+      password: 1234
+  jpa:
+    database: h2
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      platform: h2
+      mode: always
+      schema-locations: classpath*:/schema.sql
+      data-locations: classpath*:/data.sql
+
+server:
+  port: 8080
+---
+spring:
+  config:
+    activate:
+      on-profile: "devdb"
+  datasource:
+    hikari:
+      driver-class-name: "com.mysql.jdbc.Driver"
+      jdbc-url: jdbc:mysql://${MYSQL_HOST}:3306/librarydb?createDatabaseIfNotExist=true
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath*:/schema.sql
+      data-locations: classpath*:/data.sql
+      continue-on-error: true
+---
+spring:
+  config:
+    activate:
+      on-profile: "common"
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: "/swagger/docs/v2"

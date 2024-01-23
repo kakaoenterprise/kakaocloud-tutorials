@@ -1,0 +1,126 @@
+* {
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+}
+
+
+body {
+    height: 100%;
+    background-color: #fff;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+table {
+    display: table;
+    width: 100%;
+    margin-top: 10px;
+    padding-left: 20px;
+    border-spacing: 0;
+    border-collapse: separate;
+    text-indent: 5px;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+}
+
+tr {
+    display: table-row;
+    outline: 0;
+    vertical-align: middle;
+}
+
+thead > tr {
+    height: 40px;
+}
+
+tbody > tr {
+    height: 70px;
+}
+
+tbody > tr:hover {
+    background: #FBF9FB;
+}
+
+tr > th {
+    display: table-cell;
+    padding: 0;
+    border-bottom: 1px solid #F1F2F6;
+    text-align: start;
+    user-select: none;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 22px;
+    color: #212121;
+}
+
+tr > td {
+    display: table-cell;
+    padding: 0;
+    text-align: left;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #212121;
+}
+
+tr > td:nth-child(1) {
+    display: table-cell;
+    padding: 0;
+    text-align: center;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #212121;
+}
+
+td > a {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2257EB;
+}
+
+td > a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+table.form-table {
+    border: 1px white;
+    padding: 10px;
+}
+
+table.form-table tr {
+    height: 30px;
+}
+
+table.form-table th {
+    width: 200px;
+    height: 30px;
+    background-color: slategrey;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+}

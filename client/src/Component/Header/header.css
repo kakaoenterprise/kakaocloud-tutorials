@@ -1,0 +1,112 @@
+* {
+    font-family: 'Noto Sans KR', 'Roboto', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background-color: #fff;
+    color: #222;
+}
+
+header {
+    position: -webkit-sticky; /* for safari */
+    position: sticky;
+    top: 0;
+    padding-top: 1px;
+    background-color: #FFE600;
+    color: #000000;
+    margin-top: 0;
+    border-top: 0;
+}
+
+header > nav {
+    height: 120px;
+    line-height: 70px;
+    background-color: #FFE600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav > img {
+    width: 130px;
+    height: 130px;
+    vertical-align: middle;
+    object-position: bottom;
+    position: absolute;
+    bottom: 0;
+    left: 27%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.searchBox {
+    padding-left: 12px;
+    border: 0;
+    font-size: 14px;
+    width: 270px;
+    height: 43px;
+    border-radius: 6px;
+    margin-inline: 8px;
+}
+
+.searchSelect {
+    padding-left: 12px;
+    border: 0;
+    font-size: 14px;
+    width: 90px;
+    height: 45px;
+    border-radius: 6px;
+}
+
+.searchButton {
+    height: 44px;
+    border: 0;
+    padding-inline: 19px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    background: #000000;
+    border-radius: 6px;
+    color: #FFFFFF;
+}
+
+.header {
+    background-color: #FFE600;
+    text-align: center;
+    padding-top: 34px;
+}
+
+.header > a {
+    font-style: normal;
+    font-weight: 750;
+    font-size: 22px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+}
+
+html {
+    background-color: #ffffff;
+}
+
+h2 {
+    text-align: center;
+}
+
+body {
+    padding-top: 0px; /* 60px to make the container go all the way to the bottom of the topbar */
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+}
+
+body {
+    margin: 0;
+}
