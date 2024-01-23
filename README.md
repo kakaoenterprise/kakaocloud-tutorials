@@ -25,11 +25,11 @@ The following are prerequisites for running this project:
 To quickly start the project, follow these steps:
 1. Clone the project
    ```shell
-   git clone https://github.com/kakaoenterprise/kakaocloud-library
+   git clone https://github.com/kakaoenterprise/kakaocloud-tutorials -b kakaocloud-library
    ``` 
 2. Move to the working directory
     ```shell
-    cd ./kakaocloud-library
+    cd ./kakaocloud-tutorials
     ```
 3. Execute docker-compose
     ```shell
@@ -41,11 +41,11 @@ To quickly start the project, follow these steps:
 Steps for deploying the project:
 1. Clone the project
    ```shell
-    git clone https://github.com/kakaoenterprise/kakaocloud-library
+    git clone https://github.com/kakaoenterprise/kakaocloud-tutorials -b kakaocloud-library
    ``` 
 2. Move to the working directory
       ```shell
-    cd ./kakaocloud-library
+    cd ./kakaocloud-tutorials
      ```
 ### Server
 #### Environment Variables
