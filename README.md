@@ -9,9 +9,9 @@
 | 프로젝트 이름                                                                                            | 브랜치 이름             | 설명                                         |
 |----------------------------------------------------------------------------------------------------|--------------------|--------------------------------------------|
 | [카카오클라우드 라이브러리](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/kakaocloud-library)   | kakaocloud-library | 예제 미니멀 도서관 어플리케이션                                |
-| [주피터 노트북 실행 예제](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/jupyter-notebook)     | jupyter-notebook   | 주피터 노트북 프로비저닝 후 실행을 확인하는 예제 파일                   |
-| [테라폼 3티어 아키텍처](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/terraform-3tier)       | terraform-3tier    | 테라폼을 이용하여 카카오클라우드에서 3티어로 구성된 간단한 인프라를 자동화하는 프로젝트 |
-| [테라폼 몽고디비 레플리카셋](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/terraform-mongodb)   | terraform-mongodb  | 테라폼을 이용하여 카카오클라우드에서 몽고디비를 프로비저닝하는 프로젝트   |
+| [Jupyter Notebook 실행 예제](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/jupyter-notebook)     | jupyter-notebook   | Jupyter Notebook 프로비저닝 후 실행을 확인하는 예제 파일                   |
+| [Terraform 3티어 아키텍처](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/terraform-3tier)       | terraform-3tier    | Terraform을 이용하여 카카오클라우드에서 3티어로 구성된 간단한 인프라를 자동화하는 프로젝트 |
+| [Terraform MongoDB Replicaset](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/terraform-mongodb)   | terraform-mongodb  | Terraform을 이용하여 카카오클라우드에서 MongoDB를 프로비저닝하는 프로젝트   |
 | [쿠버네티스 모니터링](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/k8s-monitor)             | k8s-monitor        | 카카오클라우드에서 쿠버네티스 클러스터를 모니터링하는 예제 템플릿      |
 | [쿠버네티스 GPU 모니터링](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/k8s-gpu-monitor)     | k8s-gpu-monitor    | 카카오클라우드에서 쿠버네티스 클러스터의 GPU를 모니터링하는 예제 템플릿 |
 | [Bastion 호스트 설치 예제](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/bastion-host)     | bastion-host       | Nginx Proxy Manager를 설치 및 싱행하는 스크립트 |
