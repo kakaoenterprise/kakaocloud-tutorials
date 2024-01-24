@@ -5,11 +5,10 @@ spring:
   profiles:
     group:
       "local": "localdb,common,localms"
----
-spring:
-  profiles:
-    group:
       "dev": "devdb,common,devms"
+server:
+  port: 8080
+
 ---
 spring:
   config:
@@ -27,7 +26,7 @@ spring:
       on-profile: "devms"
 logging:
   file:
-    name: /data/logs/spring/${HOSTNAME}/library-webapp.log
+    name: /data/logs/spring/${DB_NAME}/library-webapp.log
 ---
 spring:
   config:
@@ -61,9 +60,6 @@ spring:
       mode: always
       schema-locations: classpath*:/schema.sql
       data-locations: classpath*:/data.sql
-
-server:
-  port: 8080
 ---
 spring:
   config:
@@ -71,13 +67,13 @@ spring:
       on-profile: "devdb"
   datasource:
     hikari:
-      driver-class-name: "com.mysql.jdbc.Driver"
-      jdbc-url: jdbc:mysql://${MYSQL_HOST}:3306/librarydb?createDatabaseIfNotExist=true
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+      jdbc-url: jdbc:mysql://${MYSQL_HOST}:3306/${DB_NAME}?createDatabaseIfNotExist=true
       username: ${DB_USERNAME}
       password: ${DB_PASSWORD}
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         show_sql: true
