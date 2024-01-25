@@ -27,7 +27,7 @@ COPY --from=builder /app/deploy/templates/nginx.conf /tmp
 RUN rm /usr/share/nginx/html/index.html
 COPY --from=builder /app/build /usr/share/nginx/html
 
-COPY --from=builder /app/deploy/templates/error/* /usr/share/nginx/html
+COPY --from=builder /app/deploy/templates/error/* /usr/share/nginx/html/
 
 ENTRYPOINT envsubst '$SERVER_ENDPOINT' < /tmp/nginx.conf > /etc/nginx/conf.d/nginx.conf && \
             nginx -g 'daemon off;'
