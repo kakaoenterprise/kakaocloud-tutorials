@@ -41,7 +41,7 @@
 프로젝트를 배포하기 위해 아래의 단계를 따라하세요.
 1. 깃을 통해 프로젝트를 설치합니다.
    ```shell
-    git clone https://github.com/kakaoenterprise/kakaocloud-library
+    git clone https://github.com/kakaoenterprise/kakaocloud-tutorials -b kakaocloud-library
    ``` 
 2. 작업 디렉토리를 프로젝트 경로로 이동합니다.
       ```shell
