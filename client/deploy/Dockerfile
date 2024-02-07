@@ -4,7 +4,7 @@ RUN apk update && \
     apk add --no-cache gettext
 
 # build-stage
-FROM docker.io/library/node:18.13.0 AS builder
+FROM docker.io/library/node:18.19.0-alpine AS builder
 
 WORKDIR '/app'
 
