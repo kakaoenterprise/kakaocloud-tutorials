@@ -15,7 +15,7 @@ variable "sshkey" {
 
 variable default_image {
   type    = string
-  default = "Ubuntu 20.04"
+  default = "Ubuntu 20.04 - 5.4.0-164"
 }
 
 variable "prefix" {
@@ -32,8 +32,8 @@ variable bastion_instance_name {
 
 variable bastion_flavor {
   type    = string
-  default = "a1-2-co"
-  description = "2 vcpu, 4gb ram"
+  default = "m2a.large"
+  description = "2 vcpu, 8gb ram"
 }
 
 # web-var
@@ -50,8 +50,8 @@ variable "web_nodes" {
 
 variable web_flavor {
   type    = string
-  default = "a1-2-co"
-  description = "2 vcpu, 4gb ram"
+  default = "m2a.large"
+  description = "2 vcpu, 8gb ram"
 }
 
 # app-var
@@ -68,6 +68,12 @@ variable "app_nodes" {
 
 variable app_flavor {
   type        = string
-  default     = "a1-4-co"
-  description = "4 vcpu, 8gb ram"
+  default     = "m2a.xlarge"
+  description = "2 vcpu, 8gb ram"
+}
+
+
+variable kc_availability_zone {
+  type    = string
+  default = "kr-central-2-a"
 }
