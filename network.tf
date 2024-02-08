@@ -1,79 +1,55 @@
-# network
-
-variable "public_network_cidr" {
-  type = string
-  default = ""
+data "openstack_networking_network_v2" "public_network" {
+  matching_subnet_cidr = data.openstack_networking_subnet_v2.public_subnet.cidr
 }
 
-# key
-
-variable "sshkey" {
-  type = string
+data "openstack_networking_subnet_v2" "public_subnet" {
+  cidr = var.public_network_cidr
 }
 
-# default
-
-variable default_image {
-  type    = string
-  default = "Ubuntu 20.04 - 5.4.0-164"
+data "openstack_networking_network_v2" "floating_network" {
+  external = true
 }
 
-variable "prefix" {
-  type = string
-  default = "handson"
+resource "openstack_networking_port_v2" "bastion_port" {
+  name = "${var.prefix}-${var.bastion_instance_name}"
+  network_id = data.openstack_networking_network_v2.public_network.id
+  admin_state_up = true
+  security_group_ids = [openstack_networking_secgroup_v2.bastion_sg.id]
 }
 
-# bastion-var
-
-variable bastion_instance_name {
-  type    = string
-  default = "bastion"
+resource "openstack_networking_floatingip_associate_v2" "bastion_fip_associate" {
+  floating_ip = openstack_networking_floatingip_v2.bastion_fip.address
+  port_id     = openstack_networking_port_v2.bastion_port.id
 }
 
-variable bastion_flavor {
-  type    = string
-  default = "m2a.large"
-  description = "2 vcpu, 8gb ram"
+resource "openstack_networking_floatingip_v2" "bastion_fip" {
+  pool = data.openstack_networking_network_v2.floating_network.name
+  port_id = openstack_networking_port_v2.bastion_port.id
 }
 
-# web-var
-
-variable web_instance_name {
-  type    = string
-  default = "web"
+resource "openstack_networking_port_v2" "web_port" {
+  count = length(var.web_nodes)
+  name = "${var.prefix}-${var.web_nodes[count.index]}"
+  network_id = data.openstack_networking_network_v2.public_network.id
+  admin_state_up = true
+  security_group_ids = [openstack_networking_secgroup_v2.web_sg.id]
 }
 
-variable "web_nodes" {
-  type    = list(string)
-  default = ["web-1", "web-2"]
+resource "openstack_networking_port_v2" "app_port" {
+  count = length(var.app_nodes)
+  name = "${var.prefix}-${var.app_nodes[count.index]}"
+  network_id = data.openstack_networking_network_v2.public_network.id
+  admin_state_up = true
+  security_group_ids = [openstack_networking_secgroup_v2.app_sg.id]
 }
 
-variable web_flavor {
-  type    = string
-  default = "m2a.large"
-  description = "2 vcpu, 8gb ram"
-}
-
-# app-var
-
-variable app_instance_name {
-  type    = string
-  default = "app"
-}
-
-variable "app_nodes" {
-  type    = list(string)
-  default = ["app-1", "app-2"]
-}
-
-variable app_flavor {
-  type        = string
-  default     = "m2a.xlarge"
-  description = "2 vcpu, 8gb ram"
+resource "openstack_networking_floatingip_associate_v2" "web_fip_associate" {
+  floating_ip = openstack_networking_floatingip_v2.web_fip.address
+  port_id     = openstack_lb_loadbalancer_v2.web_lb.vip_port_id
 }
 
 
-variable kc_availability_zone {
-  type    = string
-  default = "kr-central-2-a"
+resource "openstack_networking_floatingip_v2" "web_fip" {
+  pool = data.openstack_networking_network_v2.floating_network.name
+  port_id = openstack_lb_loadbalancer_v2.web_lb.vip_port_id
 }
