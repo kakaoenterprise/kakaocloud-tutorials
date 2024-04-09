@@ -1,5 +1,5 @@
 # KakaoCloud Library
-이 프로젝트는 카카카클라우드 튜토리얼을 위한 예제 프로젝트입니다.
+이 프로젝트는 카카오클라우드 튜토리얼을 위한 예제 프로젝트입니다.
 
 <img src="images/main.png" width="600px">
 
