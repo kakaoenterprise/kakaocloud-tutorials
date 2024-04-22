@@ -1,14 +1,11 @@
 # network
-
 variable public_network_cidr {
   type    = string
-  default = "${PUBLIC_NETWORK_CIDR}"
 }
 
 # key
 variable "sshkey" {
   type = string
-  default = "${USER_SSH_KEY_NAME}"
 }
 
 # default
@@ -48,3 +45,4 @@ variable "mongodb_data_volume_size" {
   default = 500
   description = "number 500 = 500GB"
 }
+

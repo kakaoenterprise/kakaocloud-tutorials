@@ -56,6 +56,7 @@ resource "openstack_compute_volume_attach_v2" "mongodb_storage_attach" {
 }
 
 resource "openstack_blockstorage_volume_v3" "mongodb_storage" {
+  availability_zone = var.kc_availability_zone
   count = length(var.mongodb_name)
   name = "${var.prefix}-${var.mongodb_name[count.index]}-data-volume"
   size = var.mongodb_data_volume_size
