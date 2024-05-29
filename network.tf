@@ -1,9 +1,9 @@
 data "openstack_networking_network_v2" "public_network" {
-  matching_subnet_cidr = data.openstack_networking_subnet_v2.public_subnet.cidr
+  network_id = data.openstack_networking_subnet_v2.public_subnet.network_id
 }
 
 data "openstack_networking_subnet_v2" "public_subnet" {
-  cidr = var.public_network_cidr
+  subnet_id = var.public_subnet_id
 }
 
 data "openstack_networking_network_v2" "floating_network" {
