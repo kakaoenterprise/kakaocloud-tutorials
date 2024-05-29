@@ -1,8 +1,8 @@
 # network
 
-variable "public_network_cidr" {
+variable "public_subnet_id" {
   type = string
-  default = ""
+  default = "main"
 }
 
 # key
@@ -15,7 +15,7 @@ variable "sshkey" {
 
 variable default_image {
   type    = string
-  default = "Ubuntu 20.04 - 5.4.0-164"
+  default = "Ubuntu 20.04 - 5.4.0-173"
 }
 
 variable "prefix" {
