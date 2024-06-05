@@ -1,11 +1,13 @@
 package com.kakaocloud.library.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakaocloud.library.config.EmbeddedRedisConfig;
 import com.kakaocloud.library.dto.BookDto;
 import com.kakaocloud.library.dto.CategoryDto;
 import com.kakaocloud.library.service.ManagementService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

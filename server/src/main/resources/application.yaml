@@ -19,6 +19,7 @@ logging:
     root: info
   file:
     name: "./library-webapp.log"
+
 ---
 spring:
   config:
@@ -27,6 +28,7 @@ spring:
 logging:
   file:
     name: /data/logs/spring/${DB_NAME}/library-webapp.log
+
 ---
 spring:
   config:
@@ -38,6 +40,11 @@ spring:
       path: /h2/library
       settings:
         trace: true
+  data:
+    redis:
+      port: 6379
+      host: 127.0.0.1
+
   datasource:
     hikari:
       driver-class-name: org.h2.Driver
@@ -60,11 +67,16 @@ spring:
       mode: always
       schema-locations: classpath*:/schema.sql
       data-locations: classpath*:/data.sql
+
 ---
 spring:
   config:
     activate:
       on-profile: "devdb"
+  data:
+    redis:
+      port: ${REDIS_PORT}
+      host: ${REDIS_HOST}
   datasource:
     hikari:
       driver-class-name: "com.mysql.cj.jdbc.Driver"
@@ -89,6 +101,7 @@ spring:
       schema-locations: classpath*:/schema.sql
       data-locations: classpath*:/data.sql
       continue-on-error: true
+
 ---
 spring:
   config:

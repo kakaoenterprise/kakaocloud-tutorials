@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/public/fonts/Pretendard-Regular.woff2') format('woff2'),
+    url('/public/fonts/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    z-index: 1000;
+    width: 70px;
+    height: 70px;
+    background: #FFFFFF;
+    border: 1px solid #D8D8D8;
+    box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.chat-button:hover {
+    width: 152.6px;
+    height: 70px;
+    border-radius: 999px;
+}
+
+.chat-icon {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    background: url("/public/assets/chat-button.gif") no-repeat center;
+    background-size: cover;
+    transition: all 0.3s ease-in-out;
+}
+
+.chat-button:hover .chat-icon {
+    left: 12px;
+}
+
+.chat-text {
+    opacity: 0;
+    transform: translateX(-10px);
+    width: auto;
+    height: 17.5px;
+    font-family: 'Pretendard', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 125%;
+    color: #000000;
+    position: absolute;
+    left: 75px;
+    white-space: nowrap;
+    transition: all 0.3s ease-in-out;
+}
+
+.chat-button:hover .chat-text {
+    opacity: 1;
+    transform: translateX(0);
+}

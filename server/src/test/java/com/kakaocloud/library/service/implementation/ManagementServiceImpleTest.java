@@ -1,5 +1,6 @@
 package com.kakaocloud.library.service.implementation;
 
+import com.kakaocloud.library.config.EmbeddedRedisConfig;
 import com.kakaocloud.library.dto.BookDto;
 import com.kakaocloud.library.dto.CategoryDto;
 import com.kakaocloud.library.entity.BookEntity;
@@ -11,6 +12,7 @@ import com.kakaocloud.library.service.ManagementService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 

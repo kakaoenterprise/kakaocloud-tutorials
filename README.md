@@ -59,6 +59,8 @@
 | `DB_NAME`     | Database name                          | library   |
 | `DB_USERNAME` | Database username                      | user      |
 | `DB_PASSWORD` | Database password                      | password  |
+| `REDIS_HOST`  | Redis host                             | localhost |
+| `REDIS_PORT`  | Redis port                             | 6379      |
 
 #### 명령어
 ```shell

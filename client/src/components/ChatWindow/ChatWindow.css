@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/public/fonts/Pretendard-Regular.woff2') format('woff2'),
+    url('/public/fonts/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+}
+
+.chatContainer {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    width: 420px;
+    height: 540px;
+    background-color: #FFFFFF;
+    border: 2px solid #DCDCDC;
+    box-shadow: 0 5px 20px -10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatheader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 12px 0 20px;
+    background-color: #FFE900;
+    border-radius: 20px 20px 0 0;
+    height: 60px;
+}
+
+.chatheaderTitle {
+    flex-grow: 1;
+    text-align: left;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #191919;
+}
+
+.chatheaderIcon {
+    width: 36px;
+    height: 36px;
+    background-color: #FFE900;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.messagesContainer {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #FFFFFF;
+}
+
+.messageBlock {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px; /* Increased margin to provide space for timestamp */
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.profileIcon {
+    width: 40px;
+    height: 40px;
+    background-color: #FFE900;
+    border: 0.5px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+}
+
+.profileName {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111111;
+    margin-left: 8px;
+}
+
+.messageContent {
+    font-family: 'Pretendard', sans-serif;
+    padding: 8px 12px;
+    background-color: #F5F5F5;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-left: 48px;
+    position: relative;
+}
+
+.messageCont {
+    font-family: 'Pretendard', sans-serif;
+    margin-left: 48px;
+    font-size: 15px;
+}
+
+.timestamp {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #727272;
+    margin-left: 52px; /* Align with message box */
+    margin-top: 4px; /* Space between message box and timestamp */
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-top: 1px solid #DCDCDC;
+    background-color: #FFFFFF;
+    border-radius: 0 0 20px 20px;
+}
+
+.input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    background-color: #FFFFFF;
+    border: 1px solid #DCDCDC;
+    border-radius: 8px;
+    margin-right: 8px;
+}
+
+.button {
+    width: 60px;
+    height: 36px;
+    background-color: #FFE900;
+    border: 1px solid #FFDC00;
+    border-radius: 8px;
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #111111;
+    cursor: pointer;
+}

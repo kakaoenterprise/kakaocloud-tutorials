@@ -14,6 +14,8 @@ ENV MYSQL_HOST "localhost"
 ENV DB_USERNAME "user"
 ENV DB_PASSWORD "password"
 ENV DB_NAME "library"
+ENV REDIS_HOST "localhost"
+ENV REDIS_PORT "6379"
 
 EXPOSE 8080
 WORKDIR /app
