@@ -1,0 +1,42 @@
+- name: Clone kakaocloud-library repository
+  git:
+    repo: 'https://github.com/kakaoenterprise/kakaocloud-tutorials'
+    dest: './kakaocloud-library'
+    version: 'kakaocloud-library'
+    force: yes
+
+- name: Run install-requirements.sh
+  command: bash install-requirements.sh
+  args:
+    chdir: './kakaocloud-library'
+  register: install_result
+  until: install_result.rc == 0
+  retries: 5
+  delay: 10
+  failed_when: install_result.rc != 0
+  changed_when: install_result.rc == 0
+
+- name: Stop and remove all running Docker containers
+  shell: |
+    docker ps -q | xargs -r docker stop
+    docker ps -a -q | xargs -r docker rm
+
+- name: Build Docker image
+  shell: >
+    docker build -q -f /home/ubuntu/kakaocloud-library/client/deploy/Dockerfile /home/ubuntu/kakaocloud-library/client -t kakaocloud-library-client
+  register: build_client_result
+  until: build_client_result.rc == 0
+  retries: 5
+  delay: 10
+  failed_when: build_client_result.rc != 0
+  changed_when: build_client_result.rc == 0
+
+- name: Run Docker container
+  shell: >
+    docker run -it \
+    -e SERVER_ENDPOINT=http://{{app_floating_ip}}:8080 \
+    -p 80:80 -p 443:443 \
+    --name kakaocloud-library-client -d \
+    kakaocloud-library-client
+  when: build_client_result is succeeded
+  become: yes

@@ -1,0 +1,45 @@
+- name: Create Keypair
+  hosts: localhost
+  vars_files:
+    - ./vars/variables.yml
+  tasks:
+    - name: Include Keypair Creation Tasks
+      include_tasks:  ./tasks/resource/keypair.yml
+
+- name: Retrieve Subnet List
+  hosts: localhost
+  vars_files:
+    - ./vars/variables.yml
+  tasks:
+    - name: Include Subnet Listing Tasks
+      include_tasks: ./tasks/resource/network_id.yml
+
+- name: Provision Web, Bastion, and App Instances
+  hosts: localhost
+  vars_files:
+    - ./vars/variables.yml
+  tasks:
+    - name: Provision Web Instance
+      include_tasks: ./tasks/resource/web-instance.yml
+    - name: Provision Bastion Instance
+      include_tasks: ./tasks/resource/bastion-instance.yml
+    - name: Provision App Instance
+      include_tasks: ./tasks/resource/app-instance.yml
+
+- name: Initialize Web VM with Application
+  hosts: web-vm
+  vars_files:
+    - ./vars/variables.yml
+  become: yes
+  tasks:
+    - name: Include Web Initialization Tasks
+      include_tasks: ./tasks/instance-init/web-init.yml
+
+- name: Initialize App VM with Application
+  hosts: app-vm
+  vars_files:
+    - ./vars/variables.yml
+  become: yes
+  tasks:
+    - name: Include App Initialization Tasks
+      include_tasks: ./tasks/instance-init/app-init.yml

@@ -1,0 +1,15 @@
+- name: Execute subnet list command
+  command: openstack --os-cloud kakao-cloud subnet list -f json
+  register: subnet_list_output
+
+- name: Parse subnet list and find matching web-instance network
+  set_fact:
+    web_network_id: "{{ item.Network }}"
+  loop: "{{ subnet_list_output.stdout | from_json }}"
+  when: item.ID == web_network.subnet_id
+
+- name: Parse subnet list and find matching app-instance network
+  set_fact:
+    app_network_id: "{{ item.Network }}"
+  loop: "{{ subnet_list_output.stdout | from_json }}"
+  when: item.ID == app_network.subnet_id

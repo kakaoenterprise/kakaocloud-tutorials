@@ -1,0 +1,99 @@
+- name: Fetch user IP using ipify
+  ipify_facts:
+  register: user_ip
+  
+- name: Create app-instance security group
+  openstack.cloud.security_group:
+    cloud: kakao-cloud
+    state: present
+    name: "ansible-app-sg"
+  register: app_security_group
+
+- name: Add SSH rule for bastion IP to app-instance security group
+  openstack.cloud.security_group_rule:
+    cloud: kakao-cloud
+    security_group: "{{ app_security_group.security_group.id }}"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    direction: ingress
+    remote_ip_prefix: "{{ bastion_fixed_ip }}/32"
+
+- name: Add SSH rule for user IP to app-instance security group
+  openstack.cloud.security_group_rule:
+    cloud: kakao-cloud
+    security_group: "{{ app_security_group.security_group.id }}"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    direction: ingress
+    remote_ip_prefix: "{{ user_ip.ansible_facts.ipify_public_ip }}/32"
+
+- name: Add HTTP rule for web instance to app-instance security group
+  openstack.cloud.security_group_rule:
+    cloud: kakao-cloud
+    security_group: "{{ app_security_group.security_group.id }}"
+    protocol: tcp
+    port_range_min: 8080
+    port_range_max: 8080
+    direction: ingress
+    remote_ip_prefix: "{{ web_floating_ip }}/32"
+
+- name: Create app-instance
+  openstack.cloud.server:
+    state: present
+    cloud: kakao-cloud
+    name: "ansible-app"
+    flavor: "{{ vm.flavor }}"
+    image: "{{ vm.image_id }}"
+    key_name: "{{ vm.key_pair }}"
+    boot_from_volume: True
+    volume_size: 30
+    terminate_volume: true
+    security_groups:
+      - "{{ app_security_group.security_group.id }}"
+    nics:
+      - net-id: "{{ app_network_id }}"
+    wait: yes
+    auto_ip: false
+  register: app_vm
+
+- name: Allocate and associate floating IP to app-instance
+  openstack.cloud.floating_ip:
+    cloud: kakao-cloud
+    state: present
+    server: "{{ app_vm.server.id }}"
+    network: "{{ floating_ip.network_id }}"
+  register: app_floating_ip_result
+
+- name: Set web floating IP
+  set_fact:
+    app_floating_ip: "{{app_floating_ip_result.floating_ip.floating_ip_address}}"
+
+- name: Set app fixed IP address as a fact
+  set_fact:
+    app_fixed_ip: "{{ item.addr }}"
+  when: item["OS-EXT-IPS:type"] == "fixed"
+  with_items: "{{ app_vm.server.addresses.values() | flatten(levels=1) }}"
+
+- name: Add app-instance to Ansible inventory
+  add_host:
+    name: app-vm
+    ansible_host: "{{ app_fixed_ip }}"
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: "{{ vm.key_pair }}.pem"
+    ansible_ssh_common_args: >-
+      -o ProxyCommand="ssh -i {{ vm.key_pair }}.pem -o StrictHostKeyChecking=no -W {{ app_fixed_ip }}:22 -q ubuntu@{{ bastion_floating_ip }}"
+      -o StrictHostKeyChecking=no
+
+- name: Add app_fixed_ip to web-vm host
+  add_host:
+    name: web-vm
+    app_fixed_ip: "{{ app_fixed_ip }}"
+    app_floating_ip : "{{app_floating_ip}}"
+
+- name: Remove app-instance IP from known_hosts
+  lineinfile:
+    path: "~/.ssh/known_hosts"
+    state: absent
+    regexp: "^{{ app_fixed_ip }}[ ,]"

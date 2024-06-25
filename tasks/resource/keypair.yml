@@ -1,0 +1,20 @@
+- name: Check if key pair exists
+  openstack.cloud.keypair_info:
+    cloud: kakao-cloud
+    name: "{{ vm.key_pair }}"
+  register: keypair_info
+
+- name: Create key pair
+  openstack.cloud.keypair:
+    cloud: kakao-cloud
+    state: present
+    name: "{{ vm.key_pair }}"
+  register: keypair
+  when: keypair_info.keypairs | length == 0
+
+- name: Save private key to file
+  copy:
+    content: "{{ keypair.keypair.private_key }}"
+    dest: "{{ vm.key_pair}}.pem"
+    mode: '0600'
+  when: keypair_info.keypairs | length == 0

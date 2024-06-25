@@ -1,0 +1,84 @@
+- name: Fetch user IP using ipify
+  ipify_facts:
+  register: user_ip
+  
+- name: Create web-instance security group
+  openstack.cloud.security_group:
+    cloud: kakao-cloud
+    state: present
+    name: "ansible-web-sg"
+  register: web_security_group
+
+- name: Add SSH rule to web-instance security group
+  openstack.cloud.security_group_rule:
+    cloud: kakao-cloud
+    security_group: "{{ web_security_group.security_group.id }}"
+    protocol: tcp
+    port_range_min: 22
+    port_range_max: 22
+    direction: ingress
+    remote_ip_prefix: "{{user_ip.ansible_facts.ipify_public_ip}}"
+
+- name: Add HTTP rule to web-instance security group
+  openstack.cloud.security_group_rule:
+    cloud: kakao-cloud
+    security_group: "{{ web_security_group.security_group.id }}"
+    protocol: tcp
+    port_range_min: 80
+    port_range_max: 80
+    direction: ingress
+    remote_ip_prefix: "{{user_ip.ansible_facts.ipify_public_ip}}"
+
+- name: Create web-instance
+  openstack.cloud.server:
+    state: present
+    cloud: kakao-cloud
+    name: "ansible-web"
+    flavor: "{{ vm.flavor }}"
+    image: "{{ vm.image_id }}"
+    key_name: "{{ vm.key_pair }}"
+    boot_from_volume: True
+    volume_size: 30
+    terminate_volume: true
+    security_groups:
+      - "{{ web_security_group.security_group.id }}"
+    nics:
+      - net-id: "{{ web_network_id }}"
+    wait: yes
+    auto_ip: false
+  register: web_vm
+
+- name: Allocate and associate floating IP to web-instance
+  openstack.cloud.floating_ip:
+    cloud: kakao-cloud
+    state: present
+    server: "{{ web_vm.server.id }}"
+    network: "{{ floating_ip.network_id }}"
+  register: web_floating_ip_result
+
+- name: Set web floating IP
+  set_fact:
+    web_floating_ip: "{{web_floating_ip_result.floating_ip.floating_ip_address}}"
+
+- name: Add web-instance to Ansible inventory
+  add_host:
+    name: web-vm
+    ansible_host: "{{ web_floating_ip }}"
+    ansible_user: ubuntu
+    ansible_ssh_private_key_file: "{{ vm.key_pair }}.pem"
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+
+- name: Remove web-instance IP from known_hosts
+  lineinfile:
+    path: "~/.ssh/known_hosts"
+    state: absent
+    regexp: "^{{ web_floating_ip }}[ ,]"
+
+- name: Wait for SSH to be available on web-instance
+  wait_for:
+    host: "{{ web_floating_ip }}"
+    port: 22
+    delay: 5
+    timeout: 180
+    state: started
+  register: result

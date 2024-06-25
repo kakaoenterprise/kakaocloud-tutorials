@@ -1,0 +1,48 @@
+- name: Clone kakaocloud-library repository
+  git:
+    repo: 'https://github.com/kakaoenterprise/kakaocloud-tutorials'
+    dest: './kakaocloud-library'
+    version: 'kakaocloud-library'
+    force: yes
+
+- name: Run install-requirements.sh
+  command: bash install-requirements.sh
+  args:
+    chdir: './kakaocloud-library'
+  register: install_result
+  until: install_result.rc == 0
+  retries: 5
+  delay: 10
+  failed_when: install_result.rc != 0
+  changed_when: install_result.rc == 0
+
+- name: Stop and Remove all running Docker containers
+  shell: |
+    docker ps -q | xargs -r docker stop
+    docker ps -a -q | xargs -r docker rm
+
+- name: Build Docker image
+  shell: >
+    docker build -q -f /home/ubuntu/kakaocloud-library/server/deploy/Dockerfile /home/ubuntu/kakaocloud-library/server -t kakaocloud-library-server
+  register: build_server_result
+  retries: 5
+  delay: 10
+  failed_when: build_server_result.rc != 0
+  changed_when: build_server_result.rc == 0
+
+- name: Run Docker container
+  shell: |
+    docker run -it \
+    -p 8080:8080 \
+    -e PROFILE={{ app_env.PROFILE }} \
+    -e MYSQL_HOST={{ app_env.MYSQL_HOST }} \
+    -e DB_NAME={{ app_env.DB_NAME }} \
+    -e DB_USERNAME={{ app_env.DB_USERNAME }} \
+    -e DB_PASSWORD={{ app_env.DB_PASSWORD }} \
+    -e REDIS_HOST={{ app_env.REDIS_HOST }} \
+    -e REDIS_PORT={{ app_env.REDIS_PORT }} \
+    --name kakaocloud-library-server -d \
+    kakaocloud-library-server
+  when: build_server_result is succeeded
+  become: yes
+
