@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-http-nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: registry.kakaoicloud-kr-gov-in.com/local/idock.daumkakao.io/cloud/nginx@sha256:8800a24f9f767f6938c49a9d7d102f54c960e9cfbc1e20fd3ae6d9ddfb81e91e
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: default-http-nginx-service
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+    loadbalancer.ike.kakaoicloud.com/load-balancer-type: "ALB"
+    loadbalancer.openstack.org/default-tls-container-ref: "https://key-manager.kr-gov-central-1.kakaoicloud-kr-gov.com/v1/secrets/{인증서 ID 입력}"
+spec:
+  selector:
+    app: nginx
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internal-http-nginx-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: default-http-nginx-service
+  annotations:
+    service.beta.kubernetes.io/openstack-internal-load-balancer: "true"
+    loadbalancer.ike.kakaoicloud.com/load-balancer-type: "ALB"
+    loadbalancer.openstack.org/default-tls-container-ref: "https://key-manager.{해당 리전의 인증서 path 입력}/v1/secrets/{인증서 ID 입력}"
+spec:
+  selector:
+    app: nginx
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80

@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-common-installer
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: nfs-common-installer
+  name: nfs-common-installer
+  namespace: nfs-common-installer
+spec:
+  selector:
+    matchLabels:
+      k8s-app: nfs-common-installer
+  template:
+    metadata:
+      labels:
+        k8s-app: nfs-common-installer
+    spec:
+      containers:
+      - name: sleeper
+        image: ike-prod-test03.kr-central-1.kcr.dev/ms-cr-prod-01/busybox:stable
+        command: ['sh', '-c', 'echo I keep things running! && sleep 3600']
+      initContainers:
+      - image: ike-prod-test03.kr-central-1.kcr.dev/ms-cr-prod-01/ubuntu
+        imagePullPolicy: Always
+        name: nfs-common-script
+        command: ["/bin/bash"]
+        args: ["-c","echo -e '#!/bin/sh\nexport PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin\napt update\napt install -y nfs-common' > /etc/install.sh & chmod +x /etc/install.sh"]
+        securityContext:
+          allowPrivilegeEscalation: true
+        volumeMounts:
+        - mountPath: /etc
+          name: installscript
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      - image: ike-prod-test03.kr-central-1.kcr.dev/ms-cr-prod-01/ubuntu
+        imagePullPolicy: Always
+        name: nfs-common-cron
+        command: ["/bin/bash"]
+        args: ["-c","echo '* * * * * root /etc/install.sh >> /etc/install_nfs_common.log & rm -rf /etc/cron.d/ssmstart' > /etc/cron.d/ssmstart"]
+        securityContext:
+          allowPrivilegeEscalation: true
+        volumeMounts:
+        - mountPath: /etc/cron.d
+          name: cronfile
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      volumes:
+      - name: cronfile
+        hostPath:
+          path: /etc/cron.d
+          type: Directory
+      - name: installscript
+        hostPath:
+          path: /etc
+          type: Directory
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+
+
