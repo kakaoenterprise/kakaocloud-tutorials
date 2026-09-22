@@ -1,0 +1,12 @@
+# Copy this file to terraform.tfvars and fill in the values below.
+# Do NOT commit terraform.tfvars (it will contain secrets).
+
+# Your public IP in CIDR form, e.g. "203.0.113.10/32".
+# Used to restrict SSH / Nginx Proxy Manager admin access to the bastion.
+admin_cidr = "203.0.113.10/32"
+
+# Required - there is no default.
+mysql_database_user_password = "ChangeMe1234!"
+
+# 카카오클라우드에 이미 등록된 키페어 이름 (기본값: kr2-cloudtech).
+# keypair_name = "kr2-cloudtech"
