@@ -1,2 +1,19 @@
 .idea
 .vscode
+
+# Terraform working files and local secrets
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
+crash.*.log
+*.tfplan
+
+# Locally generated SSH keys
+*.pem
+*.key
+
+# macOS
+.DS_Store
