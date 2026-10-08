@@ -1,3 +1,18 @@
+> **중복 브랜치 — 보관**
+>
+> 보관 시점에 kakaocloud-library 브랜치와 같은 커밋을 가리키며 Terraform 코드를 포함하지 않습니다. 중복 브랜치로 보관합니다.
+>
+> 보관일: 2026-10-08
+>
+> 원본 코드: [archive/kakaocloud-terraform-3tier-2026-10-08](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/archive/kakaocloud-terraform-3tier-2026-10-08)
+>
+> 현재 환경에서의 실행은 검증되지 않았습니다. 브랜치와 파일 경로는 기존 링크 호환성을 위해 유지합니다.
+> 현행 애플리케이션 예제: [kakaocloud-library](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/kakaocloud-library)
+
+아래 내용은 보관 전 README입니다.
+
+---
+
 # KakaoCloud Library
 이 프로젝트는 카카오클라우드 튜토리얼을 위한 예제 프로젝트입니다.
 
