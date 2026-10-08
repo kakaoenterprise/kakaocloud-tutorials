@@ -7,7 +7,7 @@
 
 | 예제 | 브랜치 | 연결 문서 및 상태 |
 |---|---|---|
-| 카카오클라우드 라이브러리 | [kakaocloud-library](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/kakaocloud-library) | [VM 기반 웹 서비스](https://docs.kakaocloud.com/tutorial/compute/vm-based-web), [채팅 웹 서비스](https://docs.kakaocloud.com/tutorial/compute/chat-application), [Container Registry](https://docs.kakaocloud.com/tutorial/container/cr-basic), [GitOps](https://docs.kakaocloud.com/tutorial/dev-tools/gitops-pipeline)에서 사용. 유지·실행 오류 수정 대상 |
+| 카카오클라우드 라이브러리 | [kakaocloud-library](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/kakaocloud-library) | [VM 기반 웹 서비스](https://docs.kakaocloud.com/tutorial/compute/vm-based-web), [채팅 웹 서비스](https://docs.kakaocloud.com/tutorial/compute/chat-application), [Container Registry](https://docs.kakaocloud.com/tutorial/container/cr-basic), [GitOps](https://docs.kakaocloud.com/tutorial/dev-tools/gitops-pipeline)에서 사용. 유지 |
 | Bastion 호스트 설치 | [bastion-host](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/bastion-host) | VM 웹 서비스, 채팅, [MongoDB Replica Set](https://docs.kakaocloud.com/tutorial/compute/vm-mongodb-replicaset) 문서에서 사용. 유지·갱신 대상 |
 | Jupyter Notebook 실행 예제 | [jupyter-notebook](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/jupyter-notebook) | [GPU Jupyter Notebook](https://docs.kakaocloud.com/tutorial/compute/vm-jupyter-notebook-setting) 문서는 별도 kc-handson-config 저장소를 참조. 유지·문서 참조 통합 대상 |
 | 쿠버네티스 모니터링 | [k8s-monitor](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/k8s-monitor) | [클러스터 모니터링](https://docs.kakaocloud.com/tutorial/observability/k8se-cluster-monitoring) 문서는 별도 kc-handson-config 저장소를 참조. 유지·문서 참조 통합 대상 |
