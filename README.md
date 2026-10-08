@@ -29,7 +29,7 @@
    ``` 
 2. 작업 디렉토리를 프로젝트 경로로 이동합니다.
     ```shell
-    cd ./kakaocloud-library
+    cd ./kakaocloud-tutorials
     ```
 3. docker-compose를 통해 프로젝트를 실행합니다.
     ```shell
@@ -45,7 +45,7 @@
    ``` 
 2. 작업 디렉토리를 프로젝트 경로로 이동합니다.
       ```shell
-    cd ./kakaocloud-library
+    cd ./kakaocloud-tutorials
      ```
 3. 어플리케이션, 환경 변수, 명령어 정보를 확인하고 명령어를 통해 어플리케이션을 배포합니다.
 

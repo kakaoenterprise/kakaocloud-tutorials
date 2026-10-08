@@ -1,13 +1,11 @@
 #!/bin/sh
 
-JAVA_OPT=" -Dspring.profiles.active=${PROFILE} "
-JAVA_OPT=${JAVA_OPT}" -DMYSQL_HOST=${MYSQL_HOST} "
-JAVA_OPT=${JAVA_OPT}" -DDB_USERNAME=${DB_USERNAME} "
-JAVA_OPT=${JAVA_OPT}" -DDB_PASSWORD=${DB_PASSWORD} "
-JAVA_OPT=${JAVA_OPT}" -DDB_NAME=${DB_NAME} "
-JAVA_OPT=${JAVA_OPT}" -DREDIS_HOST=${REDIS_HOST} "
-JAVA_OPT=${JAVA_OPT}" -DREDIS_PORT=${REDIS_PORT} "
-
-
-echo "JAVA_OPT=${JAVA_OPT}"
-java -jar ${JAVA_OPT} /app/app.jar
+exec java \
+  "-Dspring.profiles.active=${PROFILE}" \
+  "-DMYSQL_HOST=${MYSQL_HOST}" \
+  "-DDB_USERNAME=${DB_USERNAME}" \
+  "-DDB_PASSWORD=${DB_PASSWORD}" \
+  "-DDB_NAME=${DB_NAME}" \
+  "-DREDIS_HOST=${REDIS_HOST}" \
+  "-DREDIS_PORT=${REDIS_PORT}" \
+  -jar /app/app.jar
