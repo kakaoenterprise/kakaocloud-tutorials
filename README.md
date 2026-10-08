@@ -7,10 +7,13 @@
 
 | 구성 | 예제 파일 | 사용 안내 |
 |---|---|---|
-| 로드 밸런서 | [createLB/lb-nginx.yml](./createLB/lb-nginx.yml) | [로드 밸런서 생성 및 삭제](https://docs.kakaocloud.com/service/container-pack/k8se/how-to-guides/k8se-create-delete-lb) |
+| 로드 밸런서(기존 방식) | [createLB/lb-nginx.yml](./createLB/lb-nginx.yml) | [이전 버전 가이드](https://docs.kakaocloud.com/service/container-pack/k8se/how-to-guides/k8se-create-delete-lb-deprecated) |
 | 블록 스토리지 CSI | [dynamicPV/cinder-csi.yaml](./dynamicPV/cinder-csi.yaml) | [블록 스토리지 CSI Provisioner 설정](https://docs.kakaocloud.com/service/container-pack/k8se/how-to-guides/k8se-csi) |
 | Ingress 컨트롤러 | [controller-v1.12.1/deploy.yaml](./controller-v1.12.1/deploy.yaml) | [인그레스 컨트롤러 배포](https://docs.kakaocloud.com/service/container-pack/k8se/how-to-guides/k8se-ingress) |
 | NFS Client Provisioner | [NFSclientprovisioner/nfs-subdir-external-provisioner.yml](./NFSclientprovisioner/nfs-subdir-external-provisioner.yml) | [NFS Client Provisioner 설정](https://docs.kakaocloud.com/service/container-pack/k8se/how-to-guides/k8se-nfs) |
+
+새 방식으로 로드 밸런서를 구성하려면 [로드 밸런서 생성 및 제어](https://docs.kakaocloud.com/service/container-pack/k8se/how-to-guides/k8se-create-delete-lb-recommended) 가이드를 참고하세요.
+`createLB/lb-nginx.yml`은 기존 annotation 방식의 예제이며, 이 방식은 2026년 12월 31일 지원 종료 예정입니다.
 
 ## 이전 버전 예제
 
