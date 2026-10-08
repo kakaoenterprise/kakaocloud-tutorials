@@ -1,3 +1,17 @@
+> **보관된 예제 — 유지보수 종료**
+>
+> 현재 공개 기술문서에서 이 브랜치의 직접 참조를 확인하지 못했습니다. 실행에 필요한 vars/variables.yml 파일이 포함되어 있지 않은 이전 자동화 예제입니다.
+>
+> 보관일: 2026-10-08
+>
+> 원본 코드: [archive/ansible-infra-2026-10-08](https://github.com/kakaoenterprise/kakaocloud-tutorials/tree/archive/ansible-infra-2026-10-08)
+>
+> 현재 환경에서의 실행은 검증되지 않았습니다. 브랜치와 파일 경로는 기존 링크 호환성을 위해 유지합니다.
+
+아래 내용은 보관 전 README입니다.
+
+---
+
 # KakaoCloud Tutorials
 
 이 프로젝트는 [카카오클라우드 기술문서](https://docs.kakaocloud.com/)의 튜토리얼에서 사용되는 예제 프로젝트 및 코드를 제공합니다.
